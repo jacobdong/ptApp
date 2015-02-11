@@ -1,7 +1,74 @@
 angular.module('jxlApp.controllers', [])
 
-.controller('AppCtrl', function($scope) {
-  console.log('enter in ');
+.controller('AppCtrl', function($scope,$http,$ionicLoading,$timeout) {
+  var vm =  $scope.vm = {};
+  vm.supportDatasources = [];
+  vm.applyInfo = {
+    selected_website:[],
+    basic_info:{
+      name:'董发鹏',
+      id_card_num:'18693152204',
+      cell_phone_num:'622301199002040315'
+    }
+  }
+  vm.loadding = true;
+
+  vm.showLoading = function() {
+    $ionicLoading.show({
+      template: '<i class="icon ion-loading-c"></i> 正在获取数据源列表...'
+    });
+  };
+
+  vm.hideLoading = function(){
+    $ionicLoading.hide();
+  };
+
+
+  //初始化 数据源列表
+  var  url = 'https://www.juxinli.com/orgApi/rest/orgs/demo1/datasources';
+  vm.showLoading();
+  $http.get(url)
+    .success(function(data){
+        vm.supportDatasources = data.data;
+        console.log(vm.supportDatasources);
+
+        // $timeout(function(){
+          vm.loadding = false;
+          $ionicLoading.hide();
+        // },2000)
+    })
+    .error(function(){
+
+    });
+
+
+    vm.applyAuth = function(){
+
+      var applyUrl = "https://www.juxinli.com/orgApi/rest/applications/demo1";
+
+      var selectedWebsite = [];
+      angular.forEach(vm.supportDatasources, function(datasource){
+
+        if(datasource.checked){
+          var website = {
+            name:datasource.website,
+            category:datasource.category
+          }
+          selectedWebsite.push(website);
+        }
+      })
+
+      console.log(vm.selectedWebsite);
+      vm.applyInfo.selected_website = selectedWebsite;
+
+      $http.post(applyUrl,vm.applyInfo)
+        .success(function(data){
+          console.log(data);
+        })
+        .error(function(data){
+          console.log('apply error');
+        })
+    }
 })
 
 .controller('CollectCtrl', function($scope,$ionicPopup,$timeout) {

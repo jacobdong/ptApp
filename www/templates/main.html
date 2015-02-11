@@ -1,20 +1,20 @@
 <ion-view view-title="My Page">
-	<ion-content padding="true">
+	<ion-content ng-show="vm.loadding == false" padding="true">
 	  	<div class="list list-inset">
 		  <label class="item item-input">
 		  	<i class="app-icon ion-person"></i>
 		    <span class="input-label">姓名：</span>
-		    <input type="text">
+		    <input type="text" ng-model="vm.applyInfo.basic_info.name">
 		  </label>
 		  <label class="item item-input">
 		  	<i class="app-icon ion-iphone"></i>
 		    <span class="input-label">手机号码：</span>
-		    <input type="text">
+		    <input type="text" ng-model="vm.applyInfo.basic_info.cell_phone_num">
 		  </label>
 		  <label class="item item-input">
 		  	<i class="app-icon ion-card"></i>
 		    <span class="input-label">身份证号码：</span>
-		    <input type="text">
+		    <input type="text" ng-model="vm.applyInfo.basic_info.id_card_num">
 		  </label>
 		</div>
 
@@ -24,35 +24,11 @@
   		  </div>
 		  <div class="item item-text-wrap">
 		    <ul class="list">
-			  <li class="item item-toggle">
-			     京东
-			     <label class="toggle toggle-balanced">
-			       <input type="checkbox">
-			       <div class="track">
-			         <div class="handle"></div>
-			       </div>
-			     </label>
-			  </li>
-			  <li class="item item-toggle">
-			     淘宝
-			     <label class="toggle toggle-balanced">
-			       <input type="checkbox">
-			       <div class="track">
-			         <div class="handle"></div>
-			       </div>
-			     </label>
-			  </li>
-			  <li class="item item-toggle">
-			     去哪儿
-			     <label class="toggle toggle-balanced">
-			       <input type="checkbox">
-			       <div class="track">
-			         <div class="handle"></div>
-			       </div>
-			     </label>
-			  </li>
-			  <li class="item item-toggle">
-			     携程
+
+			  <li ng-repeat="datasource in vm.supportDatasources" 
+			  	  class="item item-toggle" 
+			  	  ng-click="datasource.checked = !datasource.checked;">
+			     {{datasource.name}}
 			     <label class="toggle toggle-balanced">
 			       <input type="checkbox">
 			       <div class="track">
@@ -64,7 +40,8 @@
 		  </div>
 		</div>
 		
-		<button ui-sref="collect" class="button button-block button-balanced">
+		<button class="button button-block button-balanced"
+				ng-click="vm.applyAuth()">
 		  申请认证
 		</button>
 	</ion-content>
