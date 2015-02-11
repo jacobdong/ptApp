@@ -29,6 +29,17 @@ angular.module('jxlApp', ['ionic', 'jxlApp.controllers'])
     templateUrl: "templates/main.html",
     controller: 'AppCtrl'
   })
+  .state('collect', {
+    url: "/app/collect",
+    //abstract: true,
+    templateUrl: "templates/collect.html",
+    controller: 'CollectCtrl'
+  })
+  .state('success', {
+    url: "/app/success",
+    //abstract: true,
+    templateUrl: "templates/success.html"
+  })
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app');
 });
