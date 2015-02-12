@@ -40,9 +40,14 @@
 		  </div>
 		</div>
 		
-		<button class="button button-block button-balanced"
+		<button class="button button-block button-balanced "
+				ng-class="{'disabled':vm.btnLoading}"
 				ng-click="vm.applyAuth()">
-		  申请认证
+		  <span ng-if="vm.btnLoading != true">提交申请</span>
+          <span ng-if="vm.btnLoading == true">
+            <i class="icon ion-loading-c" data-pack="default" data-tags="spinner, waiting, refresh"></i>
+            正在申请中请稍后
+          </span>
 		</button>
 	</ion-content>
 </ion-view>
