@@ -18,7 +18,7 @@ angular.module('jxlApp.controllers', [])
 
   vm.showLoading = function() {
     $ionicLoading.show({
-      template: '<i class="icon ion-loading-c"></i> 正在获取'
+      template: '<div class="text-center"><div style="width:150px;"><i class="icon ion-loading-c"></i> 正在获取</div></div>'
     });
   };
 
